@@ -10,7 +10,9 @@ button,
 }
 
 body {
-    margin: 40px;
+    margin: 30px;
+    background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
 }
 
 #logo {
@@ -31,6 +33,7 @@ p {
 
 img {
     width: 350px;
+    border: 5px solid white;
 }
 
 h1 {
@@ -48,8 +51,9 @@ h1 {
     background-color: black;
     padding: 15px 30px;
     font-size: 24px;
-    border: 1px solid black;
+    border: 3px solid white;
     border-radius: 12px;
+    margin-top: 1px;
 }
 
 #data-form {
