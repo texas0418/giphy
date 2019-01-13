@@ -6,12 +6,7 @@
     <title>Actors</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <style type="text/css">
-        button,
-        div,
-        form,
-        input {
-            margin: 10px;
-        }
+        
     </style>
 </head>
 
@@ -25,95 +20,15 @@
             <input type="text" id="actor-input"><br>
             <input id="add-actor" type="submit" value="Add Thespian">
         </form>
-
     </div>
 
     <div id="gifs-appear-here">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/javascript.js"></script>
     <script type="text/javascript">
-        var actors = [
-            "Robert Downey Jr",
-            "Brad Pitt",
-            "George Clooney",
-            "Jennifer Aniston",
-            "Angelina Jolie",
-            "Sandra Bullock"
-        ];
-
-        function addActorName() {
-            $("button").on("click", function() {
-                var person = $(this).attr("actor-name");
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                    person + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-                $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    })
-                    .then(function(response) {
-                        var results = response.data;
-                        for (var i = 0; i < results.length; i++) {
-
-                            var respData = response.data[i];
-                            var gifDiv = $("<div>");
-                            var rating = results[i].rating;
-                            var p = $("<p>").text("Rating: " + rating);
-                            var personImage = $("<img class='still-image'>");
-                            var image = respData.images.fixed_height_still.url;
-                            var gif = respData.images.fixed_height.url;
-
-                            personImage.attr("data-gif", gif);
-                            personImage.attr("src", results[i].images.fixed_height.url);
-                            personImage.attr("alt", "Still of gif");
-                            personImage.attr("data-index", i);
-                            personImage.attr("data-img", image);
-                            gifDiv.prepend(p);
-                            gifDiv.prepend(personImage);
-                            $("#gifs-appear-here").prepend(gifDiv);
-
-                        }
-                    });
-            });
-        }
-
-        function renderButtons() {
-            $("#buttons-view").empty();
-            for (var i = 0; i < actors.length; i++) {
-                var a = $("<button>");
-                a.addClass("actor");
-                a.attr("actor-name", actors[i]);
-                a.text(actors[i]);
-                $("#buttons-view").append(a);
-            }
-        }
-
-        $("#add-actor").on("click", function(event) {
-            event.preventDefault();
-            var actor = $("#actor-input").val().trim();
-            actors.push(actor);
-            renderButtons();
-        });
-
-        $(document).on("click", ".actor", addActorName);
-
-        renderButtons();
-
-        $(document).on("click", ".personImage", function(event) {
-        console.log("test");
-            var currentIn = $(this).attr("data-index");
-            var tempUrl = $(this).attr("data-gif");
-            var tempUrl2 = $(this).attr("data-img");
-        console.log(currentIn);
-        console.log(tempUrl);
-        if ($(this).attr("src") == tempUrl2) {
-        $(this).attr("src", tempUrl);
-        } else if ($(this).attr("src") == tempUrl) {
-        $(this).attr("src", tempUrl2);
-        };
-        });
-
+        
 
     </script>
     </div>
