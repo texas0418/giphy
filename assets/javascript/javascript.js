@@ -20,6 +20,7 @@ var actor;
 
 function addActorName() {
     $("button").on("click", function () {
+        $("#gifs-appear-here").empty();
         person = $(this).attr("actor-name");
         queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             person + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -42,26 +43,31 @@ function addActorName() {
                     personImage.attr("data-animate", results[i].images.fixed_height.url);
                     personImage.attr("data-still", results[i].images.fixed_height_still.url);
                     personImage.attr("data-state", "still");
-                    personImage.attr("class", "gif");
+                    personImage.addClass("gif");
 
                     gifDiv.prepend(p);
                     gifDiv.prepend(personImage);
                     $("#gifs-appear-here").prepend(gifDiv);
 
-                    $(".gif").on("click", function () {
-                        var state = $(this).attr("data-state");
-
-                        if (state === "still") {
-                            $(this).attr("src", $(this).attr("data-animate"));
-                            $(this).attr("data-state", "animate");
-                        } else {
-                            $(this).attr("src", $(this).attr("data-still"));
-                            $(this).attr("data-state", "still");
-                        }
-                    });
+                    clickGif();
 
                 }
             });
+            function clickGif() {
+            $(".gif").on("click", function () {
+                var state = $(this).attr("data-state");
+
+                if (state == "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+
+                } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+
+            });
+        }
     });
 }
 
@@ -85,5 +91,5 @@ $("#add-actor").on("click", function (event) {
 
 
 $(document).on("click", ".actor", addActorName);
-$("#gifs-appear-here").empty()
+$("#gifs-appear-here").empty();
 renderButtons();
